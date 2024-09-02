@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشاهده دوربین</title>
+    <style>
+        #video {
+            display: none; /* ابتدا ویدئو را مخفی می‌کنیم */
+        }
+    </style>
+</head>
+<body>
+    <a href="#" id="startCamera">باز کردن دوربین</a>
+    <video id="video" width="640" height="480" autoplay></video>
+
+    <script>
+        document.getElementById('startCamera').addEventListener('click', function(event) {
+            event.preventDefault(); // جلوگیری از رفتار پیش‌فرض لینک
+
+            // درخواست دسترسی به دوربین
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(stream) {
+                    var video = document.getElementById('video');
+                    video.srcObject = stream;
+                    video.style.display = 'block'; // نمایش ویدئو
+                })
+                .catch(function(err) {
+                    console.error("خطا در دسترسی به دوربین: " + err);
+                });
+        });
+    </script>
+</body>
+</html>
